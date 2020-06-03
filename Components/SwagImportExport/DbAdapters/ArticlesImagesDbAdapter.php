@@ -336,6 +336,12 @@ class ArticlesImagesDbAdapter implements DataDbAdapter
                     $mediaRepository = $this->manager->getRepository(Media::class);
                     $media = $mediaRepository->findOneBy(['name' => $name]);
                 }
+                
+                
+                // if the image was found, do not proceed and do not set it for an article again.
+                if (isset($media)) {
+                    continue;
+                }
 
                 //create new media
                 if ($this->imageImportMode === 2 || empty($media)) {
